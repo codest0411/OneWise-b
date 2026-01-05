@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: onewise-frontend
+    runtime: node
+    buildCommand: npm run build
+    startCommand: npm run start
+    source:
+      repo: https://github.com/yourusername/raw-One-Wise
+      branch: main
+      rootDir: frontend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_BACKEND_URL
+        value: https://onewise-backend.onrender.com
+
+  - type: web
+    name: onewise-backend
+    runtime: node
+    buildCommand: npm run build
+    startCommand: npm run start
+    source:
+      repo: https://github.com/yourusername/raw-One-Wise
+      branch: main
+      rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    healthCheckPath: /health
