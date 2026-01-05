@@ -78,7 +78,14 @@ type SocketData = {
 
 const io = new SocketIOServer(server, {
   cors: {
-    origin: env.socket.allowedOrigins,
+    origin(origin, callback) {
+      if (!origin) {
+        return callback(null, true)
+      }
+      const normalizedOrigin = origin.replace(/\/$/, '')
+      const allowed = env.socket.allowedOrigins.some(a => a.replace(/\/$/, '') === normalizedOrigin)
+      callback(null, allowed)
+    },
     methods: ['GET', 'POST'],
     credentials: true,
   },
