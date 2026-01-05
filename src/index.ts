@@ -25,6 +25,7 @@ const isDev = env.nodeEnv !== 'production'
 
 const corsOptions: CorsOptions = {
   origin(origin, callback) {
+    logger.info(`CORS check: Origin=${origin}, Allowed=${allowedOrigins.join(', ')}`)
     if (!origin) {
       return callback(null, true)
     }
