@@ -2,10 +2,11 @@ import { Router } from 'express'
 import { z } from 'zod'
 import { getProfileById, upsertProfile } from '../services/profile'
 import { HttpError } from '../utils/httpError'
+import type { Request, Response, NextFunction } from 'express'
 
 const router = Router()
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) {
       throw new HttpError(401, 'Not authenticated')
@@ -25,7 +26,7 @@ const updateSchema = z.object({
   avatar_url: z.string().url().optional(),
 })
 
-router.put('/', async (req, res, next) => {
+router.put('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) {
       throw new HttpError(401, 'Not authenticated')
