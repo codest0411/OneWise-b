@@ -15,13 +15,14 @@ import {
   updateParticipantPermissions,
   updateSessionSettings,
 } from '../services/session'
+import type { Request, Response, NextFunction } from 'express'
 
 const router = Router()
 
 const sessionSelect =
   'id,title,status,scheduled_at,duration_minutes,created_at,created_by,summary,participants:session_participants(id,user_id,role,joined_at)'
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
 
@@ -70,7 +71,7 @@ const permissionSchema = z.object({
   can_share_screen: z.boolean().optional(),
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
     if (req.user.role !== 'mentor') throw new HttpError(403, 'Only mentors can create sessions')
@@ -95,7 +96,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.post('/join', async (req, res, next) => {
+router.post('/join', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
 
@@ -109,7 +110,7 @@ router.post('/join', async (req, res, next) => {
   }
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
 
@@ -121,7 +122,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:id/messages', async (req, res, next) => {
+router.post('/:id/messages', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
 
@@ -135,7 +136,7 @@ router.post('/:id/messages', async (req, res, next) => {
   }
 })
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
     if (req.user.role !== 'mentor') throw new HttpError(403, 'Only mentors can update sessions')
@@ -149,7 +150,7 @@ router.patch('/:id', async (req, res, next) => {
   }
 })
 
-router.post('/:id/kick', async (req, res, next) => {
+router.post('/:id/kick', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
     if (req.user.role !== 'mentor') throw new HttpError(403, 'Only mentors can manage roster')
@@ -163,7 +164,7 @@ router.post('/:id/kick', async (req, res, next) => {
   }
 })
 
-router.post('/:id/permissions', async (req, res, next) => {
+router.post('/:id/permissions', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
     if (req.user.role !== 'mentor') throw new HttpError(403, 'Only mentors can manage permissions')
@@ -181,7 +182,7 @@ router.post('/:id/permissions', async (req, res, next) => {
   }
 })
 
-router.post('/:id/code', async (req, res, next) => {
+router.post('/:id/code', async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (!req.user?.id) throw new HttpError(401, 'Not authenticated')
 
