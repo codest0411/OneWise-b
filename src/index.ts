@@ -30,7 +30,8 @@ const corsOptions: CorsOptions = {
       return callback(null, true)
     }
 
-    if (allowedOrigins.includes(origin)) {
+    const normalizedOrigin = origin.replace(/\/$/, '')
+    if (allowedOrigins.some(a => a.replace(/\/$/, '') === normalizedOrigin)) {
       return callback(null, true)
     }
 
