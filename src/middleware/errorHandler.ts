@@ -19,6 +19,9 @@ export function errorHandler(err: unknown, _req: Request, res: Response, _next: 
         : undefined
   logger.error('Unhandled error', meta)
 
+  // Log to console for immediate visibility in production
+  console.error('Unhandled error:', err)
+
   return res.status(500).json({
     message: 'Unexpected server error',
   })
