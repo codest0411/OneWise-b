@@ -1,4 +1,4 @@
-import express from 'express'
+import express, { Request, Response } from 'express'
 import cors, { CorsOptions } from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
@@ -49,7 +49,9 @@ app.use(express.json({ limit: '1mb' }))
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan(env.nodeEnv === 'production' ? 'combined' : 'dev'))
 
-app.get('/health', (_req, res) =>
+app.get('/', (_req: Request, res: Response) => res.send('OneWise Backend API'))
+
+app.get('/health', (_req: Request, res: Response) =>
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
