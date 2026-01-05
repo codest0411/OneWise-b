@@ -336,7 +336,11 @@ server.listen(env.port, () => {
 })
 
 process.on('unhandledRejection', (reason) => {
-  logger.error('Unhandled promise rejection', typeof reason === 'object' ? (reason as Record<string, unknown>) : { reason })
+  if (reason instanceof Error) {
+    logger.error('Unhandled promise rejection', { message: reason.message, stack: reason.stack })
+  } else {
+    logger.error('Unhandled promise rejection', typeof reason === 'object' ? (reason as Record<string, unknown>) : { reason })
+  }
 })
 
 process.on('SIGTERM', () => {
