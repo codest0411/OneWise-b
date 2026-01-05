@@ -29,7 +29,7 @@ export const env = {
     allowedOrigins: parseCsv(process.env.FRONTEND_ORIGIN, ['http://localhost:3000', 'https://onewise.vercel.app']),
   },
   socket: {
-    allowedOrigins: parseCsv(process.env.SOCKET_CORS_ORIGINS, ['http://localhost:3000']),
+    allowedOrigins: parseCsv(process.env.SOCKET_CORS_ORIGINS, ['http://localhost:3000', 'https://onewise.vercel.app']),
   },
   logLevel: process.env.LOG_LEVEL ?? 'info',
 }
